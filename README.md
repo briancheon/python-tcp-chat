@@ -71,9 +71,9 @@ chat_client.py - Simple terminal-based client for chat.
 
 chat_client_gui.py - Pygame-based graphical client interface.
 
-License
+## License
 This project is released under the MIT License.
 
-Contact
+## Contact
 For questions or contributions, feel free to open an issue or a pull request.
 
