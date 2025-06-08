@@ -4,8 +4,46 @@ import pygame
 import sys
 import time
 
+def get_username():
+    pygame.init()
+    WIDTH, HEIGHT = 600, 50
+    screen = pygame.display.set_mode((WIDTH, HEIGHT))
+    pygame.display.set_caption("Enter Username")
+
+    FONT = pygame.font.Font(None, 36)
+    input_box = pygame.Rect(150, 7, 440, 36)
+    input_text = ""
+    color = pygame.Color('gray15')
+
+    done = False
+
+    while not done:
+        screen.fill((255, 255, 255))
+        enter_username = FONT.render("Username: ", True, (0, 0, 0))
+        txt_surface = FONT.render(input_text, True, (0, 0, 0))
+
+        screen.blit(enter_username, (5, 12))
+        screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
+        pygame.draw.rect(screen, color, input_box, 2)
+
+        pygame.display.flip()
+
+        for event in pygame.event.get():
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_RETURN:
+                    if input_text.strip() != "":
+                        done = True
+                        break
+                elif event.key == pygame.K_BACKSPACE:
+                    input_text = input_text[:-1]
+                else:
+                    input_text += event.unicode
+
+    pygame.quit()
+    return input_text.strip()
+
 # === Username ===
-username = input("Enter Username: ").strip()
+username = get_username()
 
 # === Socket Setup ===
 SERVER = '127.0.0.1'
