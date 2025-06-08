@@ -26,7 +26,7 @@ def get_username():
         screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
         pygame.draw.rect(screen, color, input_box, 2)
 
-        pygame.display.flip()
+        pygame.display.update()
 
         for event in pygame.event.get():
             if event.type == pygame.KEYDOWN:
@@ -106,7 +106,7 @@ def draw_window():
     txt_surface = FONT.render(input_text, True, BLACK)
     screen.blit(txt_surface, (input_box.x + 5, input_box.y + 5))
 
-    pygame.display.flip()
+    pygame.display.update()
 
 def receive_messages():
     print("[DEBUG] Receiver thread started")
