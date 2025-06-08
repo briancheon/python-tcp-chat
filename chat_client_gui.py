@@ -28,7 +28,6 @@ clock = pygame.time.Clock()
 input_box = pygame.Rect(10, HEIGHT - 40, WIDTH - 20, 30)
 input_text = ""
 messages = []
-messages_lock = threading.Lock()
 
 # === Colors ===
 WHITE = (255, 255, 255)
@@ -39,8 +38,7 @@ def draw_window():
     screen.fill(WHITE)
     y_offset = 10
 
-    with messages_lock:
-        recent_messages = messages[-5:]
+    recent_messages = messages[-5:]
 
     for sender, msg in recent_messages:
         is_self = (sender == username)
@@ -84,8 +82,7 @@ def receive_messages():
             print(f"[INFO] Received Message: {raw_msg}")
             if ": " in raw_msg:
                 sender, content = raw_msg.split(": ", 1)
-                with messages_lock:
-                    messages.append((sender, content))
+                messages.append((sender, content))
 
             draw_window()  # Ensure the window is updated with new messages
 
@@ -114,8 +111,7 @@ while run:
                     try:
                         usr_msg = f"{username}: {input_text.strip()}"
                         client_socket.send(usr_msg.encode('utf-8'))
-                        with messages_lock:
-                            messages.append((username, input_text.strip()))
+                        messages.append((username, input_text.strip()))
                         input_text = ""
                     except Exception as e:
                         print(f"[ERROR] Failed to send message: {e}")
